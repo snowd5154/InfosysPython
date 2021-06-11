@@ -1,0 +1,405 @@
+##Counting characters in 3 strings
+
+def countt3(st, ch):
+    s = 0
+    for x in st:
+        if x == ch:
+            s += 1
+    return s
+
+def count12(a1, a2, ch):
+    s = 0
+    for x in a1:
+        if x == ch:
+            s += 1
+    for x in a2:
+        if x == ch:
+            s += 1
+    return s
+
+def source_index(t1, t2, ch):
+    a1 = 0
+    a2 = 0
+    for i in range(len(t1)):
+        if t1[i] == ch:
+            a1 = i
+    for i in range(len(t2)):
+        if t2[i] == ch:
+            a2 = i
+    return max(a1, a2)
+
+def isValid(t1, t2, t3):
+    for i in t3:
+        if countt3(t3, i) > count12(t1, t2, i):
+            return 0
+    return 1
+
+s1 = input("Enter 1st string: ")
+s2 = input("Enter 2nd string: ")
+s3 = input("Enter 3rd string: ")
+print(isValid(s1, s2, s3))
+source_index_val = []
+element = []
+for i in s3:
+    source_index_val.append(source_index(s1, s2, i))
+    element.append(i)
+
+for i in range(len(source_index_val)):
+    min_idx = i
+    for j in range(i + 1, len(source_index_val)):
+        if source_index_val[min_idx] > source_index_val[j]:
+            min_idx = j
+
+    # Swap the found minimum element with the first element
+
+    source_index_val[i], source_index_val[min_idx] = source_index_val[min_idx], source_index_val[i]
+    element[i], element[min_idx] = element[min_idx], element[i]
+
+for i in range(len(element)):
+    print(element[i], ' - ', source_index_val[i])
+
+
+##The following program will determine the largest of the
+##three numbers
+
+num1 = (input("Enter first number: "))
+num2 = (input("Enter second number: "))
+num3 = (input("Enter third number: "))
+
+if (num1 >= num2) and (num1 >= num3):
+   largest = num1
+elif (num2 >= num1) and (num2 >= num3):
+   largest = num2
+else:
+   largest = num3
+
+print("The largest number is: ", largest)
+
+
+##The following program will check whether or not
+##a year is a leap year
+
+##I used the following logic to determine whether or not a year is a leap year
+
+##1.) If a year is evenly divisible by 4 means having no remainder then go to next 
+##step. If it is not divisible by 4. It is not a leap year.
+
+##2.) If a year is divisible by 4, but not by 100. For example: 2012, it is a leap year. 
+##If a year is divisible by both 4 and 100, go to next step.
+
+##3.) If a year is divisible by 100, but not by 400. For example: 1900, then it is not a 
+##leap year. If a year is divisible by both, then it is a leap year. So 2000 is a leap year.
+
+year = int(input("Please Enter the Year Number you wish: "))
+
+if (( year%400 == 0)or (( year%4 == 0 ) and ( year%100 != 0))):
+    print("%d is a Leap Year" %year)
+else:
+    print("%d is Not the Leap Year" %year)
+
+
+##This program will return the first given (n) set of natural numbers(positive integers)
+
+def recurSum(n):
+    if n <= 1:
+        return n
+    return n + recurSum(n - 1)
+ 
+## Driver code
+n = 5
+print(recurSum(n))
+
+##For some reason, idk why the findSum() function would not work in the driver code.
+##The following code, I had to find an alternative and use GFG
+
+#The following program will determine the next 15 leap years
+#from the year the user decides to input below:
+
+import calendar ##importing calendar python function
+
+def Leap_Year(Test_input):
+    #iteration/counter
+    count = 0
+    while count < 15: #while-loop
+        if calendar.isleap(Test_input):
+            print(Test_input)
+            count += 1
+        Test_input += 1
+
+
+Test_input = int(input("Enter Year: "))
+Leap_Year(Test_input)##The function will provide the next 15 leap years
+
+
+#The following program will provide the pairs of numbers from a given list
+
+def find_pairs_of_numbers(num_list,n):
+    count=0
+    for x in num_list:
+        index=num_list.index(x)+1
+        for y in range(index,len(num_list)):
+            if x+num_list[y]==n:
+                count+=1
+    return count
+num_list=[3, 4, 9, 6, 7, 8, 2, 5]
+n=6
+print(find_pairs_of_numbers(num_list,n))
+
+
+##The following program will determine whether a number(NOT STRING) is a palindrome or not...
+##I did not use the recommended function in Lex for the exercise
+##I used integer_reverse and reverse instead is_palindrome()
+
+def integer_reverse(number):
+    reverse = 0
+    
+    while(number > 0):
+        Reminder = number % 10
+        reverse = (reverse * 10) + Reminder
+        number = number // 10
+    return reverse
+
+number = int(input("Please Enter any Number: "))
+
+rev = integer_reverse(number)
+print("Reverse of a Given number is = %d" %rev)
+
+##Test to see whether the number is a palindrome or not
+if(number == rev):
+    print("%d is a Palindrome Number" %number)
+else:
+    print("%d is not a Palindrome Number" %number)
+
+
+#The following program gives ticket information to various destinations
+
+class Ticket:
+    counter=0 
+    def __init__(self,passenger_name,source,destination):
+        self.__passenger_name=passenger_name
+        self.__source=source
+        self.__destination=destination
+        self.Counter=Ticket.counter
+        Ticket.counter+=1
+    def validate_source_destination(self):
+        if (self.__source=="Houston" and (self.__destination=="Dallas" or self.__destination=="Austin" or self.__destination=="Mansfield" or self.__destination=="Victoria")):
+            return True
+        else:
+            return False
+
+    def generate_ticket(self ):
+        if True:
+            __ticket_id=self.__source[0]+self.__destination[0]+"0"+str(self.Counter)
+            print( "Ticket id will be:",__ticket_id)
+        else:
+            return False
+    def get_ticket_id(self):
+        return self.ticket_id
+    def get_passenger_name(self):
+        return self.__passenger_name
+    def get_source(self):
+        if self.__source=="Houston":
+            return self.__source
+        else:
+            print("you have written invalid soure option")
+            return None
+    def get_destination(self):
+        if self.__destination=="Dallas":
+            return self.__destination
+        elif self.__destination=="Austin":
+            return self.__destination
+        elif self.__destination=="Mansfield":
+            return self.__destination
+        elif self.__destination=="Victoria":
+            return self.__destination
+
+        else:
+            return None
+
+
+##The following program will print the proper divisors 
+##for a given number
+
+def printDivisors(n) : #used printDivisors() instead of properDivisor(num)
+    i = 1 #iteration
+    while i <= n : #while loop
+        if (n % i==0) : #if the number divided by the iteration equals to 0
+            print (i),
+        i = i + 1##Will print in descending order
+         
+# Driver method
+print ("The divisors of 220 are: ") ##Change the number to check the list of divisors
+printDivisors(220)##change the number to check the list of divisors
+
+
+##The following program will return the square of
+##a given integer(n)
+
+## input a number
+digit = int(input("Enter an integer number: "))
+
+## calculate square
+square = digit*digit
+
+print(f"Square of {digit} is {square}")
+
+
+##The following program will determine whether
+##a number is a strong number or not
+
+def factorial(d):
+   if(d==1 or d==0):
+      return 1
+   return d*factorial(d-1)
+
+def isStrong(n):
+   num=n
+   sm=0
+   while(n>0):
+      digit=n%10
+      sm=sm+factorial(digit)
+      n=n//10
+   if(sm==num):
+      return True
+   else:
+      return False
+print("Input a number")
+a=int(input())
+print(isStrong(a))
+
+
+#The following program will give the information of a student
+
+class Student:
+    
+    def __init__(id, age, marks):
+        self.student_id = id
+        self.age = age
+        self.marks = marks
+    
+    def validate_marks():
+        if self.marks >= 0 and self.marks <= 100:
+            return True
+        
+        return False
+    
+    def validate_age():
+        if self.age >= 20:
+            return True
+        
+        return False    
+    
+    def check_qualification():
+        if validate_age() and validate_marks():
+            if self.marks >= 65:
+                return True
+            else:
+                return False
+        
+        else:
+            return False
+    
+    def get_id():
+        return self.student_id
+    
+    def set_id(id):
+        self.student_id = id
+    
+    def get_age():
+        return self.age
+    
+    def set_age(age):
+        self.age = age
+    
+    def get_marks():
+        return self.marks
+    
+    def set_marks(marks):
+        self.marks = marks 
+
+
+#The following program will determine the amount of vowels used in a sentence
+
+def Vowel_Count(string, vowels):
+    final = [each for each in string if each in vowels]
+    print(len(final))
+    print(final)
+     
+# Driver
+string = "Somebody come get her"
+vowels = "AaEeIiOoUu"
+Vowel_Count(string, vowels);
+
+
+##Calculating Insurance Costs
+
+class insurance:
+  vehical_id = 0
+  vehical_type = ""
+  vehical_cost = 0
+  vehical_premium = 0
+  Vehical_typeCheck = 0
+
+  def __init__(self, id, vtype, cost):
+    # initializing
+    self.vehical_id = id
+    self.vehical_type = vtype
+    self.vehical_cost = cost
+
+    # calculating vehical premium based on vehical type
+    if(self.vehical_type == "Two Wheeler"):
+      self.vehical_premium = self.vehical_cost * 0.02
+    elif (self.vehical_type == "Four Wheeler") :
+      self.vehical_premium = self.vehical_cost * 0.06
+    else:
+      self.Vehical_typeCheck = 1
+
+
+  # checking for valid vehical type or not 'case sensitive string comparision
+    if(self.Vehical_typeCheck == 0):
+      print("Vehical Id : ",self.vehical_id)
+      print("Vehical Type : ",self.vehical_type)
+      print("Vehical Cost : ",self.vehical_cost)
+      print("Vehical Premium : ",self.vehical_premium)
+    else:
+      print("Invalid Vehical Type\n\n")
+
+
+#The following program will translate the words from English to Swedish
+#The translation will be from English to Swedish
+#Merry Christmas and Happy New Year
+
+def translate(bilingual_dict,english_words_list):##define function
+    swedish_words_list = []
+    for x in english_words_list:
+        swedish_words_list.append(bilingual_dict[x])
+
+    return swedish_words_list
+
+bilingual_dict= {"merry":"god", "christmas":"jul", "and":"och", "happy":"gott", "new":"nytt", "year":"ar"}
+english_words_list=["merry","christmas"]
+print("The bilingual dict is:",bilingual_dict)
+print("The english words are:",english_words_list)
+
+swedish_words_list=translate(bilingual_dict, english_words_list)
+print("The equivalent swedish words are:",swedish_words_list)
+
+
+##The following program determines whether a number
+##is a multiple of 3, 5, both, or neither
+
+##Take note of how all the if, else if, and else statements
+##are formatted in Python
+
+x=int(input("Enter the number: "))
+
+##nested if statement
+if x%3==0:
+   if x%5==0:
+       print("Zoom")
+   else:
+       print("Zip")
+elif x%5==0:
+   print("Zap")
+else:
+   print("Invalid")
