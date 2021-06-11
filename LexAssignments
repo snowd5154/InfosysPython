@@ -1,0 +1,695 @@
+#Twin Prime Numbers Code
+def isPrime(n):
+    # number less than 2 are never prime, so return False
+    if n < 2:
+        return False
+
+    # 2 is a prime number, so return True
+    if n == 2:
+        return True
+
+    # number divisible by 2 other than 2 are never prime, so return False
+    if n %2 == 0:
+        return False
+
+    # check for prime numbers
+    for x in range(3, int(n**0.5)+1, 2):
+        # if n divisible by x, then n is not prime number, so return False
+        if n % x == 0:
+            return False
+
+    # if for loop runs completely without return, then n must be prime number, and return True
+    return True
+
+# return twin_prime numbers
+def twin_primes(n):
+    # if n<=0, return -1, as per given case
+    if n <= 0:
+        return -1
+    
+    # found, tells, whether twin prime found or not 
+    found = False
+    # twin_prime is a list of twin primes
+    twin_prime = []
+    # check for twin primes
+    for i in range(2, n-1):
+        # if i and i+2 are twin primes
+        if isPrime(i) and isPrime(i+2):
+            twin_prime.append(str(i) + ':' + str(i+2))
+            found = True
+
+    # if no twin prime numbers found, then return 0
+    if found == False:
+        return 0
+    else:
+        # if twin prime found, then convert them in string, and return it
+        return ','.join(twin_prime)
+    
+    
+
+
+# input string from user
+inputstring = input() ##do not edit this line, use this string/input for the code
+
+# convert string in numbers
+input_number = int(inputstring)
+
+# print twin prime numbers
+print(twin_primes(input_number))
+
+
+##This program will determine how many adjacent numbers
+
+#for i in range(len(alist)-1):
+#    if(alist[i] == [i+1]):
+#        counter += 2 ##since you count both elements
+
+#alist = [1,1,5,100,-20,-20,6,0,0]##3
+#alist = [10,20,30,40,30,20]##0
+#alist = [1,2,2,3,4,4,4,10]##3
+
+##I could not get the program above to compile because I could not define it properly
+
+
+##The following code is from GeeksForGeeks rather than my own
+#def findAdjacentElements(test_list):
+#    res = []
+#    for idx, ele in enumerate(test_list):
+  
+#        # Checking for all cases to append
+#        #This uses if, else if, else statements rather than using the for loop in the prior program
+#        if idx == 0:
+#            res.append((None, test_list[idx + 1]))
+#        elif idx == len(test_list) - 1:
+#            res.append((test_list[idx - 1], None))
+#        else:
+#            res.append((test_list[idx - 1], test_list[idx + 1]))
+#    return res
+  
+  
+## Initializing list
+## Enter the numbers here!:
+#input_list = [1,1,5,100,-20,-20,6,0,0]
+##input_list = [10,20,30,40,30,20]
+##input_list = [1,2,2,3,4,4,4,10]
+  
+## Printing original list
+#print("The original list is:", input_list)
+  
+  
+## printing result
+#print("The Adjacent elements list:", findAdjacentElements(input_list))
+
+##The following program is the correct code for the problem statement:
+
+lt=list(map(int,input("Enter the numbers : ").split(',')))##Input the numbers here!
+l=len(lt)
+c=0
+for i in range(0,l-1):
+    if(lt[i]==lt[i+1]):
+        c=c+1
+
+print(lt)##length
+print(c)##number of adjacent digits
+
+
+##The following program will print tickets information for each passenger
+
+def generate_ticket(airline,source,destination,num_of_passengers):
+
+    ticket_number_list = []##initializing the ticket number list
+    i = 0
+    
+    if num_of_passengers < 5:
+        while num_of_passengers != 0: ##while loop
+            ##source[:3] and destination[:3] will only print the first three characters
+            ticket_number_list.append(airline + ":" + source[:3] + ":" + destination[:3] + ":" + str(101+i))
+            i = i+1 ##iteration
+            num_of_passengers = num_of_passengers - 1
+
+    else:
+        for i in range(5):
+            ##source[:3] and destination[:3] will only print the first three characters
+            ticket_number_list.append(airline + ":" + source[:3] + ":" + destination[:3] + ":" + str(100+num_of_passengers))
+            i = i+1 ##iteration
+            num_of_passengers = num_of_passengers - 1
+        ticket_number_list = ticket_number_list[::-1]
+
+    return ticket_number_list
+
+print(generate_ticket("Spirit","Delta","Edmonton",5))
+
+
+##The following program will determine whether or not a set of
+##numbers is amicable. Amicable numbers are if each is equal to
+##the sum of the proper divisors of the other 
+
+import math
+  
+##Calculate sum of all proper divisors
+def divSum(n) :
+      
+    result = 0
+
+    for i in range(2, int(math.sqrt(n)) + 1) :
+          
+        ##Checks to see if i is a divisor of n
+        if (n % i == 0) :
+              
+            ## if both divisors are same then add it once else add both
+
+            if (i == int(n / i)) :
+                result = result + i
+            else :
+                result = result + (i + int(n / i))
+  
+    ## Add 1 and n to result as above loop considers proper divisors greater than 1.
+    return (result + 1)
+  
+  
+## Returns true if x and y are Amicable else false.
+
+def areAmicable(x, y) :
+  
+    if (divSum(x) != y) :
+        return False
+          
+    return (divSum(y) == x) 
+  
+## Driver
+
+##Input the value of x and the value of y to test whether
+##or not the digits you select are amicable or not
+x = 220
+y = 284
+if (areAmicable(x, y)) : ##amicable function
+    print ("Yes")
+else :
+    print ("No")
+
+
+#The following program will determine the amount of characters in a string
+
+string = "How many Lowe's could Rob Lowe rob if Rob Lowe could rob Lowe's?";  ##enter the string here!
+count = 0;  ##count/iteration
+   
+#Counts each character except space  
+for i in range(0, len(string)):  ##for-loop
+    if(string[i] != ' '):  ##does not count spaces
+        count = count + 1;  
+   
+#Displays the total number of characters present in the given string  
+print("Total number of characters in a string: " + str(count));  
+
+
+##The following program will determine how many words there are in a given sentence
+
+#Initializing the string  
+test_string = "They say that all's well that ends well"
+  
+# printing original string
+print ("The original string is : " +  test_string)
+  
+# using split() to count words in string
+res = len(test_string.split())
+  
+# printing result
+print ("The number of words in string are : " +  str(res))
+
+#Apparel Program
+class Apparel:
+    counter=100
+    def __init__(self,price,item_type):
+        Apparel.counter+=1
+        self.__item_id=item_type[0]+str(Apparel.counter)
+        self.__price=price
+        self.__item_type=item_type
+        
+    def calculate_price(self):
+        self.__price+=self.__price*0.05
+        
+    
+    def get_item_id(self):
+        return self.__item_id
+        
+    def get_price(self):
+        return self.__price
+        
+    def get_item_type(self):
+        return self.__item_type
+        
+    def set_price(self,price):
+        self.__price=price
+        
+class Cotton(Apparel):
+    def __init__(self,price,discount):
+        super().__init__(price,"Cotton")
+        self.__discount=discount
+        
+    def calculate_price(self):
+        super().calculate_price()
+        price=self.get_price()
+        price-=price*(self.__discount/100)
+        price+=price*0.05
+        self.set_price(price)
+        
+    def get_discount(self):
+        return self.__discount
+        
+
+class Silk(Apparel):
+    def __init__(self,price):
+        super().__init__(price,"Silk")
+        self.__points=None
+        
+    def calculate_price(self):
+        super().calculate_price()
+        if self.get_price()>10000:
+            self.__points=10 
+        else:
+            self.__points=3 
+        self.set_price(self.get_price()+(self.get_price()*0.1))
+        
+        
+    def get_points(self):
+        return self.__points
+
+#The following program will give the athlete's information
+
+class Athlete:
+   def __init__(self,name,gender):
+       self.__name=name
+       self.__gender=gender
+
+   def running(self):
+       if(self.__gender=="girl"):
+           print("150mtr running")
+       else:
+           print("200mtr running")
+
+   def getName():
+       return self.__name
+
+   def getGender():
+       return self.__gender
+
+   def setName(n):
+       self.__name = n
+
+   def setGender(g):
+       self.__gender = g
+
+def main():
+   m = Athlete("Maria", "girl")
+   m.running()
+
+if __name__ == "__main__":
+   main()
+
+##This program will convert a number to bit format
+INT_BITS = 32
+def right_shift(num, n): ##bit conversion function AND definition
+
+   ##In num>>n, first d bits are 0.
+   ##To put last 3 bits of at first, do bitwise or of num>>n with num <<(INT_BITS - n)
+   
+   return (num >> n)|(num << (INT_BITS - n)) & 0xFFFFFFFF
+
+num = int(input("Enter a number: "))
+n = int(input("Enter number of shifts: "))
+
+print("result =", right_shift(num, n))
+
+class Customer:
+    customer_name = ""
+    bill_amount = 0
+
+    # constructor
+    def __init__(self, customer_name, total_bill_amount):
+        self.customer_name = customer_name
+        self.bill_amount = total_bill_amount
+
+    def purchases(self):
+        discounted_bill_amount =  self.bill_amount*0.95
+        # 5% discount means 95% of the total amount has to be paid
+        self.pay_bill(discounted_bill_amount)
+
+    def pay_bill(self, discounted_bill_amount):
+        # I have printed the discounted bill till 2 decimal places
+        print(self.customer_name,"pays bill amount of Rs", '%.2f'%discounted_bill_amount)
+
+
+# testing function
+def main():
+    # 4 customers
+    customer1 = Customer("Shivani",600)
+    customer2 = Customer("Anshuman",500.50)
+    customer3 = Customer("Karan", 400)
+    customer4 = Customer("Diksha", 1000.70)
+    # invoke purchases() for each customer
+    customer1.purchases()
+    customer2.purchases()
+    customer3.purchases()
+    customer4.purchases()
+
+if __name__ == "__main__":
+    main()
+
+class Classroom:
+
+#The following program is a list of classrooms
+#If invalid, the program will return an error   
+    classroom_list=[]
+
+    @staticmethod
+
+    def search_classroom(class_room):
+
+        # loops over the list
+
+        for i in Classroom.classroom_list:
+
+            #checks if both are equal
+
+            if i.lower()==class_room.lower():
+
+                return "Found"
+
+        return -1
+
+#The following program will show the common characters in
+#a given string
+
+def find_common_characters(msg1,msg2):
+    result = []
+    if len(msg1) > len(msg2):
+        
+        result = my_func(msg1,msg2)
+    else:
+        
+        result = my_func(msg2,msg1)
+    
+    if len(result) == 0:
+        return -1
+    
+    else:
+        
+        result = "".join(result)
+        
+        return result.replace(" ","")
+
+def my_func(bigger,smaller):
+    length = len(smaller)
+    bigger =list(bigger)
+    smaller = list(smaller)
+    
+    i = 0
+    result = []
+    while i < length :
+        ans = smaller[i] in bigger
+        if ans == True:
+            result.append(smaller[i])
+            bigger.remove(smaller[i])
+        i = i + 1
+    return result
+
+msg1="I like python"
+msg2="Java is a very popular programming language"
+common_characters=find_common_characters(msg1,msg2)
+print(common_characters)
+
+#Fruit name purchases from Customer
+
+class FruitInfo:
+    __fruit_name_list=['Apple','Guava','Orange','Grape','Sweet Lime']
+    __fruit_price_list=[200,80,70,110,60]
+    
+    @staticmethod
+    def get_fruit_price(fruit_name):
+        if fruit_name in FruitInfo.__fruit_name_list:
+            fruit_index=FruitInfo.__fruit_name_list.index(fruit_name)
+            price_per_kg=FruitInfo.__fruit_price_list[fruit_index]
+            return price_per_kg
+        else:
+            return -1
+    
+    @staticmethod
+    def get_fruit_name_list():
+        return FruitInfo.__fruit_name_list
+    @staticmethod
+    def get_fruit_price_list():
+        return FruitInfo.__fruit_price_list
+        
+class Purchase:
+    __counter=101
+    def __init__(self,customer,fruit_name,quantity):
+        self.__customer=customer
+        self.__fruit_name=fruit_name
+        self.__quantity=quantity
+        self.__purchase_id=None
+        
+    def calculate_price(self):
+        price=FruitInfo.get_fruit_price(self.__fruit_name)
+        if FruitInfo.get_fruit_price(self.__fruit_name) != -1:
+            mx=FruitInfo.get_fruit_price_list()
+            maximum=max(mx)
+            minimum=min(mx)
+            total_price=price*self.__quantity
+            if price==maximum and self.__quantity>1:
+                total_price*=0.98 
+            
+            if price==minimum and self.__quantity>=5:
+                total_price*=0.95 
+            
+            if Customer.get_cust_type(self.__customer)=='thriftsale':
+                total_price*=0.90
+                    
+            self.__purchase_id="P"+str(Purchase.__counter)
+            Purchase.__counter+=1
+        
+            return total_price
+        
+        else:
+            return -1
+            
+    def get_purchase_id(self):
+        return self.__purchase_id
+        
+    def get_customer(self):
+        return self.__customer
+        
+    def get_quantity(self):
+        return self.__quantity
+        
+        
+class Customer:
+    def __init__(self,customer_name,cust_type):
+        self.__customer_name=customer_name
+        self.__cust_type=cust_type
+        
+    def get_customer_name(self):
+        return self.__customer_name
+        
+    def get_cust_type(self):
+        return self.__cust_type
+        
+        
+c=Customer("Bofa", "thriftsale")
+p=Purchase(c,"Apple", 2)
+print(p.calculate_price())
+
+
+##The following program will determine the employee's salary increase
+
+def find_new_salary(current_salary,job_level):
+    if job_level == 3:
+        new_salary = (current_salary*1.15)
+    elif job_level == 4:
+        new_salary = (current_salary*1.07)
+    elif job_level == 5:
+        new_salary = (current_salary*1.05)
+    else:
+        return current_salary
+
+    return new_salary
+
+##Here, you add the values for current_salary and job_level and to test the program
+new_salary=find_new_salary(15000,3)##current salary and level
+print(new_salary)
+
+
+#The following program will give an encoded message to a 
+#given string value provided in the program
+
+def encode(message):
+    output=''
+    previous=message[0]
+    i=1
+    count=1
+    while len(message)>i:
+        if previous==message[i]:
+            count+=1
+        else:
+            output+=str(count)+previous
+            count=1
+            previous=message[i]
+
+        if i==len(message)-1:
+            output += str(count) + previous
+        i+=1
+    if len(message)==1:
+        output += str(count) + previous
+    return output
+
+#Provide different values for message and test your program
+
+##Change the message you want to encode here!
+encoded_message=encode("AAAABBBBCCCCCCCC")
+
+#Will print the encoded message using the function
+print(encoded_message)
+
+##The following program will determine the factorial of a number
+def factorial(n):
+     
+    return 1 if (n==1 or n==0) else n * factorial(n - 1);
+ 
+## Driver
+num = 7;
+print("Factorial of",num,"is:",factorial(num))
+
+
+##The following program is a Fibonacci sequence in Python Programming
+## The program will display the Fibonacci sequence up to nth term
+
+nterms = int(input("How many terms?: "))
+
+##The first two terms are always going to be 0 and 1
+
+n1, n2 = 0, 1
+count = 0
+
+## Check if the number of terms is valid
+if nterms <= 0:
+   print("Please enter a positive integer")
+elif nterms == 1:
+   print("Fibonacci sequence up to",nterms," : ")
+   print(n1)
+else:
+   print("Fibonacci sequence:")
+   while count < nterms:
+       print(n1)
+       nth = n1 + n2
+       # update values
+       n1 = n2
+       n2 = nth
+       count += 1
+
+
+#Describes the customer info of a freight company
+
+class Customer:
+  
+   # constructor
+   def __init__(self, customer_id, customer_name, address):
+       self.__customer_id = customer_id
+       self.__customer_name = customer_name
+       self.__address = address
+  
+   # function to validate customer_id
+   def validate_customer_id(self):
+       if((len(self.__customer_id) == 6) and (self.__customer_id.isdigit()) and (self.__customer_id[0] == '1')):
+           return True
+       else:
+           print('Customer ID should be of 6 digits and must start with 1')
+           return False
+  
+   # function to return customer_id
+   def get_customer_id(self):
+       return self.__customer_id
+  
+   # function to return customer_name
+   def get_customer_name(self):
+       return self.__customer_name
+  
+   # function to return customer address
+   def get_address(self):
+       return self.__address
+      
+# Freight class
+class Freight:
+  
+   # static variable counter
+   counter = 198
+  
+   # constructor
+   def __init__(self, recipient_customer, from_customer, weight, distance):
+       self.__freight_id = 0
+       self.__recipient_customer = recipient_customer
+       self.__from_customer = from_customer
+       self.__weight = weight
+       self.__distance = distance
+       self.__freight_charge = 0
+  
+   # validate weight
+   def validate_weight(self):
+       if self.__weight%5 == 0:
+           return True
+       else:
+           print('Weight should be a multiple of 5')
+           return False
+  
+   # validate distance
+   def validate_distance(self):
+       if(self.__distance >= 500 and self.__distance <=5000):
+           return True
+       else:
+           print('Distance should be between 500kms and 5000kms (both inclusive)')
+           return False
+  
+   # function to determine if cargo can be forwarded or not, if it can generate freight id and calculate freight charge   
+   def forward_cargo(self):
+       if(self.__recipient_customer.validate_customer_id() and self.__from_customer.validate_customer_id() and self.validate_distance() and self.validate_weight()):
+           Freight.counter += 2
+           self.__freight_id = Freight.counter
+           self.__freight_charge = (150*self.__weight + 60*self.__distance)
+       else:
+           self.__freight_charge = 0
+      
+   # function to return freight charge  
+   def get_freight_charge(self):
+       return self.__freight_charge
+  
+   # function to return freight id
+   def get_freight_id(self):
+       return self.__freight_id
+  
+   # function to return recipient_customer
+   def get_recipient_customer(self):
+       return self.__recipient_customer
+  
+   # function to return from_customer
+   def get_from_customer(self):
+       return self.__from_customer
+  
+   # function to return weight
+   def get_weight(self):
+       return self.__weight
+  
+   # function to return distance
+   def get_distance(self):
+       return self.__distance
+
+# Tester
+def main():
+  
+   from_customer = Customer('123331',"John Smith", "123, Main Street")
+   recipient_customer = Customer('123456',"Michael Day", "34, South Bay Street")
+   freight = Freight(recipient_customer, from_customer, 650, 2000)  
+   freight.forward_cargo()
+   print('Freight ID : '+str(freight.get_freight_id()))
+   print('Freight charge : '+str(freight.get_freight_charge()))
+
+#call the main function  
+main()  
+
